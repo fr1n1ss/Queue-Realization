@@ -83,17 +83,40 @@
             if (Count == 0)
                 throw new ArgumentException("Queue is empty!");
 
-            bool flag = false;
-
-            for (int i = 0; i < _items.Length; i++)
+            if (item == null)
             {
-                if (_items[i].Equals(item))
+                for (int i = 0; i < _items.Length; i++)
                 {
-                    flag = true;
-                    break;
+                    int index = _head + i;
+                    if (index >= _items.Length)
+                    {
+                        index -= _items.Length;
+                    }
+
+                    if (_items[index] == null)
+                    {
+                        return true;
+                    }
                 }
             }
-            return flag;
+            else
+            {
+                for (int i = 0; i < _items.Length; i++)
+                {
+                    int index = _head + i;
+                    if (index >= _items.Length)
+                    {
+                        index -= _items.Length; 
+                    }
+
+                    if (item.Equals(_items[index]))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
         #endregion
         #region Private Methods
